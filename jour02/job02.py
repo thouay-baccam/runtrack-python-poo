@@ -29,16 +29,20 @@ class Livre:
         else:
             print("Erreur : Le nombre de pages doit être plus que 0.")
 
-mon_livre = Livre("Watchmen", "Alan Moore", 416)
+    def main(): # Pour pas que le code se rêpete dans le job 03.
+        mon_livre = Livre("Watchmen", "Alan Moore", 416)
 
-print(f"Titre : {mon_livre.get_titre()}")
-print(f"Auteur : {mon_livre.get_auteur()}")
-print(f"Pages : {mon_livre.get_pages()}")
+        print(f"Titre : {mon_livre.get_titre()}")
+        print(f"Auteur : {mon_livre.get_auteur()}")
+        print(f"Pages : {mon_livre.get_pages()}")
 
-mon_livre.set_titre("Le Portrait de Dorian Gray")
-mon_livre.set_auteur("Oscar Wilde")
-mon_livre.set_pages(258)
+        mon_livre.set_titre("Le Portrait de Dorian Gray")
+        mon_livre.set_auteur("Oscar Wilde")
+        mon_livre.set_pages(258)
 
-print(f"Titre après modif : {mon_livre.get_titre()}")
-print(f"Auteur après modif : {mon_livre.get_auteur()}")
-print(f"Pages après modif : {mon_livre.get_pages()}")
+        print(f"Titre après modif : {mon_livre.get_titre()}")
+        print(f"Auteur après modif : {mon_livre.get_auteur()}")
+        print(f"Pages après modif : {mon_livre.get_pages()}")
+
+    if __name__ == "__main__":
+        main()
