@@ -51,7 +51,7 @@ if __name__ == "__main__":
     # Affichage de la disponibilité après l'emprunt (devrait être False)
     print("Le livre est disponible:", emprunt_livre.verification())
     
-    # Tentative d'emprunter le livre à nouveau (devrait afficher un message indiquant que le livre n'est pas disponible)
+    # Tentative d'emprunter le livre à nouveau (devrait afficher un message indiquant que le livre n'est pas disponible.)
     emprunt_livre.emprunter()
     
     # Tentative de rendre le livre (devrait afficher un message indiquant que le livre n'a pas été emprunté)
