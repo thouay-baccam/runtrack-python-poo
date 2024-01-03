@@ -29,3 +29,5 @@ if __name__ == "__main__":
     emprunt_livre.rendre()
     emprunt_livre.emprunter()
     print("Le livre est disponible:", emprunt_livre.verification())
+    emprunt_livre.emprunter()
+    emprunt_livre.rendre()
