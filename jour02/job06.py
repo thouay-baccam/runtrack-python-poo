@@ -1,37 +1,75 @@
 class Commande:
-    def __init__(self, numero_commande):
+    def __init__(self, numero_commande, liste_commande, taux_tva=0.20):
         self.__numero_commande = numero_commande
-        self.__plats_commandes = {}
-        self.__statut_commande = "en cours"
+        self.__liste_commande = liste_commande
+        self.__statut_commande = "En cours"
+        self.__prix_ht = self.__calculer_prix_ht()
+        self.__TAUX_TVA = taux_tva
+        self.__tva = self.__calculer_tva()
 
-    def ajouter_plat(self, nom_plat, prix_plat):
-        if nom_plat not in self.__plats_commandes:
-            self.__plats_commandes[nom_plat] = {'prix': prix_plat, 'statut': self.__statut_commande}
-            print(f"Le plat suivant a été ajouté a la commande : '{nom_plat}'.")
+    def __calculer_tva(self):
+        return self.__prix_ht * self.__TAUX_TVA
+
+    def __calculer_prix_ht(self):
+        return sum(self.__liste_commande.values())
+
+    def ajouter_a_commande(self, plat, prix):
+        self.__liste_commande[plat] = prix
+        self.__prix_ht = self.__calculer_prix_ht()
+        self.__tva = self.__calculer_tva()
+
+    def finaliser_commande(self):
+        self.__statut_commande = "Terminée"
 
     def annuler_commande(self):
-        self.__statut_commande = "annulée"
-        print("La commande a été annulée.")
+        self.__statut_commande = "Annulée"
 
-    def calculer_total(self):
-        total = sum(plat['prix'] for plat in self.__plats_commandes.values())
-        return total
+    def infos_commande(self):
+        infos_commande = (
+            f"Numéro de commande : {self.__numero_commande}\n"
+            f"Statut de la commande : {self.__statut_commande}\n"
+            f"----------------\n"
+        )
+        for plat, prix in self.__liste_commande.items():
+            infos_commande += f"- {plat}: {prix}€\n"
+        infos_commande += (
+            f"----------------\n"
+            f"Prix hors-taxe : {self.__prix_ht}€\n"
+            f"TVA : {self.__tva}€\n"
+            f"Total : {self.__prix_ht + self.__tva}€\n"
+        )
+        return infos_commande
 
-    def afficher_commande(self):
-        print(f"Numéro de la commande : {self.__numero_commande}")
-        print("Plats commandés:")
-        for plat, details in self.__plats_commandes.items():
-            print(f"{plat} - Prix: {details['prix']} - Statut: {details['statut']}")
-        print(f"Total à payer : {self.calculer_total()}")
 
-    def calculer_tva(self, taux_tva=0.2):
-        tva = self.calculer_total() * taux_tva
-        return tva
+def tester_commande():
+    premiere_commande = {
+        "Filet de saumon grillé": 22.50,
+        "Risotto aux truffes": 18.80,
+        "Tarte au citron meringuée": 8.50,
+    }
+    premiere = Commande(1, premiere_commande)
+    print(premiere.infos_commande())
 
-commande1 = Commande(numero_commande=1)
-commande1.ajouter_plat("Pizza", 12.50)
-commande1.ajouter_plat("Salade", 8.00)
-commande1.afficher_commande()
-print(f"TVA à payer : {commande1.calculer_tva()}")
-commande1.annuler_commande()
-commande1.afficher_commande()
+    premiere.ajouter_a_commande("Champagne brut", 45.00)
+    print(premiere.infos_commande())
+
+    premiere.annuler_commande()
+    print(premiere.infos_commande())
+
+    deuxieme_commande = {
+        "Côte de bœuf Wagyu": 120.00,
+        "Homard grillé au beurre": 58.90,
+        "Soufflé au chocolat noir": 12.50,
+    }
+    deuxieme = Commande(2, deuxieme_commande, taux_tva=0.25)
+    print(deuxieme.infos_commande())
+
+    deuxieme.ajouter_a_commande("Bouteille de vin rouge Grand Cru", 75.00)
+    print(deuxieme.infos_commande())
+
+    deuxieme.finaliser_commande()
+    print(deuxieme.infos_commande())
+
+
+if __name__ == "__main__":
+    tester_commande()
