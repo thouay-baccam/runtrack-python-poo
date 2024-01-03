@@ -1,5 +1,6 @@
 class Commande:
     def __init__(self, numero_commande, liste_commande, taux_tva=0.20):
+        # Initialisation des attributs de la commande
         self.__numero_commande = numero_commande
         self.__liste_commande = liste_commande
         self.__statut_commande = "En cours"
@@ -8,23 +9,29 @@ class Commande:
         self.__tva = self.__calculer_tva()
 
     def __calculer_tva(self):
+        # Méthode privée pour calculer la TVA
         return self.__prix_ht * self.__TAUX_TVA
 
     def __calculer_prix_ht(self):
+        # Méthode privée pour calculer le prix hors taxe
         return sum(self.__liste_commande.values())
 
     def ajouter_a_commande(self, plat, prix):
+        # Méthode pour ajouter un plat à la commande
         self.__liste_commande[plat] = prix
         self.__prix_ht = self.__calculer_prix_ht()
         self.__tva = self.__calculer_tva()
 
     def finaliser_commande(self):
+        # Méthode pour finaliser une commande
         self.__statut_commande = "Terminée"
 
     def annuler_commande(self):
+        # Méthode pour annuler une commande
         self.__statut_commande = "Annulée"
 
     def infos_commande(self):
+        # Méthode pour afficher les informations de la commande
         infos_commande = (
             f"Numéro de commande : {self.__numero_commande}\n"
             f"Statut de la commande : {self.__statut_commande}\n"
@@ -42,6 +49,7 @@ class Commande:
 
 
 def tester_commande():
+    # Fonction de test
     premiere_commande = {
         "Filet de saumon grillé": 22.50,
         "Risotto aux truffes": 18.80,
