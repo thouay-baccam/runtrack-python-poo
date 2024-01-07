@@ -20,5 +20,5 @@ class Voiture(Vehicule):
         super().informationsVehicule()
         print(f"Nombre de portes = {self.portes}")
 
-voiture_mercedes = Voiture(marque="Mercedes", modele="Classe A", annee=2020, prix=18500)
-voiture_mercedes.informationsVehicule()
+mercedes = Voiture(marque="Mercedes", modele="Classe A", annee=2020, prix=18500)
+mercedes.informationsVehicule()
